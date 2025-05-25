@@ -56,6 +56,11 @@ I have used NVIDIA NeMo’s [stt\_hi\_conformer\_ctc\_medium](https://catalog.ng
 
 The original `.nemo` model is converted to ONNX format for accelerated inference with reduced latency.
 
+## 📌 Important Note
+
+please download the .onnx model from https://drive.google.com/file/d/1I2uQq0wHBy-  Jb3qWbKrAMwEF8IyHg5YS/view?usp=sharing and save it as app/model/asr_model.onnx
+and then run the main.py
+
 ### 🧪 Audio Handling
 
 * Ensures all input audio is:
