@@ -79,13 +79,13 @@ The original `.nemo` model is converted to ONNX format for accelerated inference
 asr_app/
 ├── app/
 │   ├── main.py               # FastAPI app with /transcribe endpoint
-│   ├── model_loader.py       # Loads and optimizes NeMo model
-│   ├── audio_utils.py        # Audio preprocessing
-├── model/
-│   └── stt_hi_conformer.onnx # ONNX exported model (please download the .onnx model from https://drive.google.com/file/d/1I2uQq0wHBy-Jb3qWbKrAMwEF8IyHg5YS/view?usp=sharing and save it as app/model/asr_model.onnx) 
+│   ├── _pycache_
+│   ├── model/
+│       └──vocab.txt
+│       └── stt_hi_conformer.onnx # ONNX exported model (please download the .onnx model from https://drive.google.com/file/d/1I2uQq0wHBy-  Jb3qWbKrAMwEF8IyHg5YS/view?usp=sharing and save it as app/model/asr_model.onnx) 
 ├── Dockerfile
-├── requirements.txt
-└── README.md
+├── README.md
+└── requirements.txt
 ```
 
 ---
@@ -96,6 +96,8 @@ asr_app/
 * Streaming inference via WebSocket
 * Multilingual model support
 * GPU inference via Triton Inference Server
+
+ For long audios and file formats other than .wav
 
 ---
 
