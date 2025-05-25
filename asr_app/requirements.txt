@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydub
+numpy
+onnxruntime
+python-multipart
+soundfile
+librosa
+# nemo_toolkit[asr]
