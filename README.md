@@ -112,3 +112,9 @@ Feel free to open an issue if you need help or have suggestions!
 
 ---
 
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
