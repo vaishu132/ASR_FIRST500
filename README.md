@@ -14,20 +14,25 @@ Deploy a production-ready Automatic Speech Recognition (ASR) service using NVIDI
 git clone https://github.com/vaishu132/nemo-asr-fastapi.git
 cd nemo-asr-fastapi
 ```
+### 2. Conversion to `.onnx`
 
-### 2. Build the Docker Image
+I have used NVIDIA NeMo’s [stt\_hi\_conformer\_ctc\_medium](https://catalog.ngc.nvidia.com/orgs/nvidia/teams/nemo/models/stt_hi_conformer_ctc_medium/files) and downloaded the `stt_hi_conformer_ctc_medium.nemo` for robust Hindi speech recognition.
+The original `.nemo` model is converted to ONNX format for accelerated inference with reduced latency.
+If you want to use any other model, please change the model path from `load_model_and_vocab.py` and then run it.
+
+### 3. Build the Docker Image
 
 ```bash
 docker build -t nemo-asr-api .
 ```
 
-### 3. Run the Container
+### 4. Run the Container
 
 ```bash
 docker run -p 8000:8000 nemo-asr-api
 ```
 
-The API will be accessible at `http://127.0.0.1:8000`.
+The API will be accessible at `http://127.0.0.1:8000/docs`.
 
 ---
 
@@ -46,20 +51,22 @@ curl -X POST "http://127.0.0.1:8000/transcribe" \
 
 ---
 
-## 🎯 Design Highlights
+## 🛠️ Project Structure
 
-### ✅ Model Selection
+```
+asr_app/
+├── app/
+│   ├── main.py                 # FastAPI application with /transcribe endpoint          
+│   └── model/
+├── load_model_and_vocab.py 
+├── Dockerfile
+├── README.md
+└── requirements.txt
 
-I have used NVIDIA NeMo’s [stt\_hi\_conformer\_ctc\_medium](https://catalog.ngc.nvidia.com/orgs/nvidia/teams/nemo/models/stt_hi_conformer_ctc_medium/files) and download the `stt_hi_conformer_ctc_medium.nemo` for robust Hindi speech recognition.
-
-### ⚡ ONNX Optimization
-
-The original `.nemo` model is converted to ONNX format for accelerated inference with reduced latency.
+```
+---
 
 ## 📌 Important Note
-
-please download the .onnx model from [https://drive.google.com/file/d/1I2uQq0wHBy-Jb3qWbKrAMwEF8IyHg5YS/view?usp=sharing](https://drive.google.com/file/d/1I2uQq0wHBy-Jb3qWbKrAMwEF8IyHg5YS/view?usp=drive_link) and save it as app/model/asr_model.onnx
-and then run the main.py
 
 ### 🧪 Audio Handling
 
@@ -76,33 +83,17 @@ and then run the main.py
 | ------ | ------------- | ------------------------------ |
 | POST   | `/transcribe` | Upload WAV file and transcribe |
 
----
-
-## 🛠️ Project Structure
-
-```
-asr_app/
-├── app/
-│   ├── main.py               # FastAPI app with /transcribe endpoint
-│   ├── _pycache_
-│   ├── model/
-│       └──vocab.txt
-│       └── stt_hi_conformer.onnx # ONNX exported model (please download the .onnx model from https://drive.google.com/file/d/1I2uQq0wHBy-  Jb3qWbKrAMwEF8IyHg5YS/view?usp=sharing and save it as app/model/asr_model.onnx) 
-├── Dockerfile
-├── README.md
-└── requirements.txt
-```
 
 ---
 
 ## 🔍 Future Enhancements
 
-* Batch transcription support
-* Streaming inference via WebSocket
-* Multilingual model support
-* GPU inference via Triton Inference Server
-
- For long audios and file formats other than .wav
+* Batch transcription support – Enable processing of multiple audio files in a single request.
+* Streaming inference via WebSocket – Support real-time transcription for streaming audio.
+* Multilingual model support – Extend support to additional languages beyond the current model.
+* GPU inference with Triton Inference Server – Integrate NVIDIA Triton for high-performance GPU-based inference.
+* Support for longer audio files – Currently optimized for short clips (5–10 seconds); future versions will handle longer audio inputs.
+* Additional audio format support – Currently supports `.wav` files; will add support for formats like `.mp3`.
 
 ---
 
@@ -112,8 +103,6 @@ Contributions are welcome! Feel free to:
 
 * Open an issue for bugs or feature requests
 * Submit a PR for enhancements
-
----
 
 ---
 
